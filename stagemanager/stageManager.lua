@@ -12,9 +12,10 @@ local currentMap = {}
 --local players = {}
 local playerCount = 0
 local readyCount = 0
+local ready = {}
 
 -- function to send events
-function sendEvent(type, value)
+function sendEventToPlayers(type, value)
     local e = Event()
     e.type = type
     e.value = value
@@ -27,21 +28,19 @@ if IsServer then
     LocalEvent:Listen(LocalEvent.Name.OnPlayerJoin, function(Player)
         print(Player.Username .. " has joined the game!")
         playerCount = playerCount + 1
-        sendEvent("PlayerCountUpdate", playerCount)
-       -- local e = Event()
-       -- e.type = "PlayerCountUpdate"
-       -- e.number = playerCount
-       -- e:SendTo(Players)
+        sendEventToPlayers("PlayerCountUpdate", playerCount)
     end)
     -- On leave
     LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(Player)
         print(Player.Username .. " has left the game!")
         playerCount = playerCount - 1
-        sendEvent("PlayerCountUpdate", playerCount)
-      --  local e = Event()
-      --  e.type = "PlayerCountUpdate"
-       -- e.number = playerCount
-       -- e:SendTo(Players)
+        -- Remove player from ready list if they leave
+        if ready[Player] then
+            ready[Player] = nil
+            readyCount = readyCount - 1
+        end
+        sendEventToPlayers("ReadyUpdate", readyCount)
+        sendEventToPlayers("PlayerCountUpdate", playerCount)
     end)
 end
 
@@ -116,24 +115,16 @@ function stageManager.setPostGameMap(post_game_map)
     postGameMap = post_game_map
 end
 
-local ready = {}
 function stageManager.readyUp(Player)
     if ready[Player] then
         ready[Player] = nil
         readyCount = readyCount - 1
-        sendEvent("ReadyUpdate", readyCount)
-      --  local readyEvent = Event()
-        --readyEvent.ready = readyCount - 1
-        --readyEvent:SendTo(Players)
+        sendEventToPlayers("ReadyUpdate", readyCount)
         print(Player.Username .. " unreadied!")
     else
         ready[Player] = "ready"
         readyCount = readyCount + 1
-        sendEvent("ReadyUpdate", readyCount)
-      --  local readyEvent = Event()
-       -- readyEvent.ready = readyCount + 1
-       -- readyEvent:SendTo(Players)
-       -- print(Player.Username .. " is now ready!")
+        sendEventToPlayers("ReadyUpdate", readyCount)
     end
     print(readyCount .. " players ready")
 end
@@ -147,15 +138,12 @@ end
 function stageManager.checkPlayersReady()
     -- if everyone is ready, start the gane
     if readyCount == playerCount then
-        stageManager.setStage("game")
+        --stageManager.setStage("game")
         print("Starting game!")
         ready = {}
         readyCount = 0
         -- send event to clients to reset playerCount
-        sendEvent("ReadyUpdate", 0)
-     --   local e = Event()
-     --   e.ready = 0
-      --  e:SendTo(Players)
+        sendEventToPlayers("ReadyUpdate", 0)
     else
         print("Cannot start game: " .. readyCount .. " / " .. playerCount .. " players are ready!")
     end
