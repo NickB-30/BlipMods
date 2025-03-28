@@ -13,6 +13,7 @@ local currentMap = {}
 local playerCount = 0
 local readyCount = 0
 
+-- OnJoin and OnLeave Events (Server)
 if IsServer then
     LocalEvent:Listen(LocalEvent.Name.OnPlayerJoin, function(Player)
         print(Player.Username .. " has joined the game!")
@@ -30,6 +31,20 @@ if IsServer then
         e.number = playerCount
         e:SendTo(Players)
     end)
+end
+
+-- Network event to sync player and ready count (Client-side)
+if not IsServer then
+    Client.DidReceiveEvent = function(event)
+        -- do something with the event
+        if event.type == "PlayerCountUpdate" then
+            playerCount = event.number
+            print(playerCount .. " players in the game.")
+        end
+        if event.ready then
+            readyCount = event.ready
+        end
+    end
 end
 
 local stages = {
@@ -89,19 +104,6 @@ function stageManager.setPostGameMap(post_game_map)
     postGameMap = post_game_map
 end
 
--- add players
---function stageManager.addPlayer(Player)
-  --  playerCount = playerCount + 1
-    --if currentStage == "game" then
-      --  players[Player] = "spectating"
-        --print(Player .. " is spectating")
-    --else
-      --  players[Player] = "lobby"
-        --print(Player.Username .. " joined the lobby")
-    --end
---end
-
--- ready up
 local ready = {}
 function stageManager.readyUp(Player)
     if ready[Player] then
@@ -118,20 +120,6 @@ function stageManager.readyUp(Player)
         print(Player.Username .. " is now ready!")
     end
     print(readyCount .. " players ready")
-end
-
--- Network event to sync player count (Client-side)
-if not IsServer then
-    Client.DidReceiveEvent = function(event)
-        -- do something with the event
-        if event.type == "PlayerCountUpdate" then
-            playerCount = event.number
-            print(playerCount .. " players in the game.")
-        end
-        if event.ready then
-            readyCount = event.ready
-        end
-    end
 end
 
 -- get ready players
