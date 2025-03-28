@@ -89,11 +89,11 @@ end
 
 -- ready up
 local ready = {}
-function stageManager.readyUp(player)
-    if ready[player] then
+function stageManager.readyUp(Player)
+    if ready[Player] then
         print("Player already ready!")
     else
-        ready[player] = "ready"
+        ready[Player] = "ready"
     end
 end
 
