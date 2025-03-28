@@ -18,24 +18,23 @@ if IsServer then
         print(Player.Username .. " has joined the game!")
         playerCount = playerCount + 1
         print(playerCount .. " players in the game!")
-        Network:Broadcast("UpdatePlayerCount", playerCount)
+        local e = Event()
+        e.number = 1
+        e:sendTo(Players)
     end)
     LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(Player)
         print(Player.Username .." has left the game!")
         playerCount = playerCount - 1
         print(playerCount .. " players in the game!")
-        Network:Broadcast("UpdatePlayerCount", playerCount)
     end)
 end
 
 -- Network event to sync player count (Client-side)
 if not IsServer then
-    Network:Listen("UpdatePlayerCount", function(count)
-        playerCount = count
-    end)
-    Network:Listen("UpdateReadyCount", function(count)
-        readyCount = count
-    end)
+    Client.DidReceiveEvent = function(event)
+        -- do something with the event
+            playerCount = playerCount + event.number
+    end
 end
 
 local stages = {
