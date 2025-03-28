@@ -17,6 +17,7 @@ return {
 		"Config",
 		"Dev",
 		"Fog",
+		"IsServer",
 		"Light",
 		"Menu",
 		"Player",

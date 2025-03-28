@@ -13,6 +13,13 @@ local players = {}
 local playerCount = 0
 local readyCount = 0
 
+if IsServer then
+    LocalEvent:Listen(LocalEvent.Name.OnPlayerJoin, function(Player)
+        print(Player.Username .. " has joined the game!")
+        playerCount = playerCount + 1
+    end)
+end
+
 local stages = {
     lobby = function()
         -- lobby functionality
@@ -112,12 +119,6 @@ end
 
 -- check if players are ready
 function stageManager.checkPlayersReady()
-  --  for _, status in pairs(ready) do
-    --    if status == "ready" then
-    --        readyCount = readyCount + 1
-     --   end
-    --end
-
     -- if everyone is ready, start the gane
     if readyCount == playerCount then
         stageManager.setStage("game")
