@@ -94,6 +94,7 @@ function stageManager.readyUp(Player)
         print("Player already ready!")
     else
         ready[Player] = "ready"
+        print(Player .. "is now ready!")
     end
 end
 
