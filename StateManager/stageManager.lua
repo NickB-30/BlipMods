@@ -9,6 +9,7 @@ local gameMap = {}
 local postGameMap = {}
 
 local currentMap = {}
+local players = {}
 
 local stages = {
     lobby = function()
@@ -62,6 +63,39 @@ end
 -- set postGameMap
 function stageManager.setPostGameMap(post_game_map)
     postGameMap = post_game_map
+end
+
+-- add players 
+function stageManager.addPlayer(player)
+    if currentStage == "game" then
+        players[player] = "spectating"
+        print(player .. " is spectating")
+    else
+        players[player] = "lobby"
+        print(player .. " joined the lobby")
+    end
+end
+
+-- remove players
+function stageManager.removePlayer(player)
+    if players[player] then
+        players[player] = nil
+        print(player .. " left the game")
+    end
+end
+
+-- check if players are ready
+function stageManager.checkPlayersReady()
+    local readyCount = 0
+    for player, status in pairs(players) do
+        if status == "lobby" then
+            readyCount = readyCount + 1
+        end
+    end
+
+    if readyCount == #players then
+        stageManager.setStage("game")
+    end
 end
 
 return stageManager
