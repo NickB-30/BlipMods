@@ -112,11 +112,11 @@ end
 
 -- check if players are ready
 function stageManager.checkPlayersReady()
-    for _, status in pairs(ready) do
-        if status == "ready" then
-            readyCount = readyCount + 1
-        end
-    end
+  --  for _, status in pairs(ready) do
+    --    if status == "ready" then
+    --        readyCount = readyCount + 1
+     --   end
+    --end
 
     -- if everyone is ready, start the gane
     if readyCount == playerCount then
