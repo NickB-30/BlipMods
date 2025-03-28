@@ -20,7 +20,6 @@ if IsServer then
         print(Player.Username .. " has joined the game!")
         playerCount = playerCount + 1
         print(playerCount .. " players in the game!")
-        local e = Event()
         e.number = e.number + 1
         e:SendTo(Players)
     end)
