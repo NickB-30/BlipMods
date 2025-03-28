@@ -13,21 +13,21 @@ local players = {}
 local playerCount = 0
 local readyCount = 0
 
-local e = Event()
-e.number = 1
 if IsServer then
     LocalEvent:Listen(LocalEvent.Name.OnPlayerJoin, function(Player)
         print(Player.Username .. " has joined the game!")
         playerCount = playerCount + 1
         print(playerCount .. " players in the game!")
-        e.number = e.number + 1
+        local e = Event()
+        e.number = playerCount + 1
         e:SendTo(Players)
     end)
     LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(Player)
         print(Player.Username .." has left the game!")
         playerCount = playerCount - 1
         print(playerCount .. " players in the game!")
-        e.number = e.number - 1
+        local e = Event()
+        e.number = playerCount - 1
         e:SendTo(Players)
     end)
 end
@@ -135,8 +135,12 @@ end
 if not IsServer then
     Client.DidReceiveEvent = function(event)
         -- do something with the event
-        playerCount = event.number
-        readyCount = event.ready
+        if event.number then
+            playerCount = event.number
+        end
+        if event.ready then
+            readyCount = event.ready
+        end
     end
 end
 
