@@ -123,7 +123,7 @@ function stageManager.checkPlayersReady()
         stageManager.setStage("game")
         print("Starting game!")
     else
-        print(readyCount .. " / " .. playerCount .. "players are ready!")
+        print("Cannot start game: " .. readyCount .. " / " .. playerCount .. " players are ready!")
     end
 end
 
