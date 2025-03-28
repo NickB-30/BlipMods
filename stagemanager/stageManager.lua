@@ -139,7 +139,7 @@ function stageManager.checkPlayersReady()
         readyCount = 0
         -- send event to clients to reset playerCount
         local e = Event()
-        e.number = 0
+        e.ready = 0
         e:SendTo(Players)
     else
         print("Cannot start game: " .. readyCount .. " / " .. playerCount .. " players are ready!")
