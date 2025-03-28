@@ -75,7 +75,7 @@ function stageManager.addPlayer(Player)
         print(Player .. " is spectating")
     else
         players[Player] = "lobby"
-        print(Player .. " joined the lobby")
+        print(Player.Username .. " joined the lobby")
     end
 end
 
@@ -83,7 +83,7 @@ end
 function stageManager.removePlayer(Player)
     if players[Player] then
         players[Player] = nil
-        print(Player .. " left the game")
+        print(Player.Username .. " left the game")
     end
 end
 
@@ -94,7 +94,7 @@ function stageManager.readyUp(Player)
         print("Player already ready!")
     else
         ready[Player] = "ready"
-        print(Player .. "is now ready!")
+        print(Player.Username .. "is now ready!")
     end
 end
 
