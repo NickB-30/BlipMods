@@ -127,13 +127,13 @@ function stageManager.readyUp(Player)
     if ready[Player] then
         ready[Player] = nil
         readyCount = readyCount - 1
-        readyEvent.ready = Event.ready - 1
-        Event:SendTo(Players)
+        readyEvent.ready = readyEvent.ready - 1
+        readyEvent:SendTo(Players)
         print(Player.Username .. " unreadied!")
     else
         ready[Player] = "ready"
         readyCount = readyCount + 1
-        readyEvent.ready = Event.ready + 1
+        readyEvent.ready = readyEvent.ready + 1
         readyEvent:SendTo(Players)
         print(Player.Username .. " is now ready!")
     end
