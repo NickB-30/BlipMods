@@ -75,8 +75,9 @@ function stageManager.addPlayer(Player)
         print(Player .. " is spectating")
     else
         players[Player] = "lobby"
-        print(Player.Username)
-        print(Player.Username .. " joined the lobby")
+        print("Hello")
+  --      print(Player.Username)
+       -- print(Player.Username .. " joined the lobby")
     end
 end
 
