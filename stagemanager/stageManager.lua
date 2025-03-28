@@ -32,15 +32,6 @@ if IsServer then
     end)
 end
 
--- Network event to sync player count (Client-side)
-if not IsServer then
-    Client.DidReceiveEvent = function(event)
-        -- do something with the event
-        playerCount = event.number
-        readyCount = event.ready
-    end
-end
-
 local stages = {
     lobby = function()
         -- lobby functionality
@@ -138,6 +129,15 @@ function stageManager.readyUp(Player)
         print(Player.Username .. " is now ready!")
     end
     print(readyCount .. " players ready")
+end
+
+-- Network event to sync player count (Client-side)
+if not IsServer then
+    Client.DidReceiveEvent = function(event)
+        -- do something with the event
+        playerCount = event.number
+        readyCount = event.ready
+    end
 end
 
 -- get ready players
