@@ -16,7 +16,6 @@ local readyCount = 0
 if IsServer then
     LocalEvent:Listen(LocalEvent.Name.OnPlayerJoin, function(Player)
         print(Player.Username .. " has joined the game!")
-        playerCount = playerCount + 1
         print(playerCount .. " players in the game!")
         local e = Event()
         e.number = playerCount + 1
@@ -24,7 +23,6 @@ if IsServer then
     end)
     LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(Player)
         print(Player.Username .." has left the game!")
-        playerCount = playerCount - 1
         print(playerCount .. " players in the game!")
         local e = Event()
         e.number = playerCount - 1
@@ -112,19 +110,17 @@ end
 
 -- ready up
 local ready = {}
-local readyEvent = Event()
-readyEvent.ready = 0
 function stageManager.readyUp(Player)
     if ready[Player] then
         ready[Player] = nil
-        --readyCount = readyCount - 1
-        readyEvent.ready = readyEvent.ready - 1
+        local readyEvent = Event()
+        readyEvent.ready = readyCount - 1
         readyEvent:SendTo(Players)
         print(Player.Username .. " unreadied!")
     else
         ready[Player] = "ready"
-        --readyCount = readyCount + 1
-        readyEvent.ready = readyEvent.ready + 1
+        local readyEvent = Event()
+        readyEvent.ready = readyCount + 1
         readyEvent:SendTo(Players)
         print(Player.Username .. " is now ready!")
     end
