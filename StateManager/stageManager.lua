@@ -18,6 +18,7 @@ local stages = {
         if lobbyMap[0] then
             -- set map to lobbyMap and update currentMap
             currentMap = lobbyMap
+            Config.Map = currentMap
         end
     end,
 
@@ -26,6 +27,7 @@ local stages = {
         -- if currentMap is not gameMap, change it
         if currentMap ~= gameMap then
             currentMap = gameMap
+            Config.Map = currentMap
         end
     end,
 
@@ -35,6 +37,7 @@ local stages = {
         if postGameMap[0] then
             -- set map to postGameMap and update currentMap
             currentMap = postGameMap
+            Config.Map = currentMap
         end
     end
 }
@@ -65,7 +68,7 @@ function stageManager.setPostGameMap(post_game_map)
     postGameMap = post_game_map
 end
 
--- add players 
+-- add players
 function stageManager.addPlayer(player)
     if currentStage == "game" then
         players[player] = "spectating"
@@ -84,10 +87,25 @@ function stageManager.removePlayer(player)
     end
 end
 
+-- ready up
+local ready = {}
+function stageManager.readyUp(player)
+    if ready[player] then
+        print("Player already ready!")
+    else
+        ready[player] = "ready"
+    end
+end
+
+-- get ready players
+function stageManager.getReadyPlayer()
+    return ready
+end
+
 -- check if players are ready
 function stageManager.checkPlayersReady()
     local readyCount = 0
-    for player, status in pairs(players) do
+    for _, status in pairs(players) do
         if status == "lobby" then
             readyCount = readyCount + 1
         end
@@ -95,6 +113,9 @@ function stageManager.checkPlayersReady()
 
     if readyCount == #players then
         stageManager.setStage("game")
+        print("Starting game!")
+    else
+        print("Cannot start game!")
     end
 end
 
