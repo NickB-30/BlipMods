@@ -96,10 +96,11 @@ end
 local ready = {}
 function stageManager.readyUp(Player)
     if ready[Player] then
-        print("Player already ready!")
+        ready[Player] = nil
+        print(Player.Username .. " unreadied!")
     else
         ready[Player] = "ready"
-        print(Player.Username .. "is now ready!")
+        print(Player.Username .. " is now ready!")
     end
 end
 
@@ -122,7 +123,7 @@ function stageManager.checkPlayersReady()
         stageManager.setStage("game")
         print("Starting game!")
     else
-        print(readyCount .. "/ " .. playerCount .. "are ready!")
+        print(readyCount .. " / " .. playerCount .. "players are ready!")
     end
 end
 
