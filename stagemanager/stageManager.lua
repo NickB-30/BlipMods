@@ -9,7 +9,7 @@ local gameMap = {}
 local postGameMap = {}
 
 local currentMap = {}
-local players = {}
+--local players = {}
 local playerCount = 1
 local readyCount = 0
 
@@ -89,25 +89,16 @@ function stageManager.setPostGameMap(post_game_map)
 end
 
 -- add players
-function stageManager.addPlayer(Player)
-    playerCount = playerCount + 1
-    if currentStage == "game" then
-        players[Player] = "spectating"
-        print(Player .. " is spectating")
-    else
-        players[Player] = "lobby"
-        print(Player.Username .. " joined the lobby")
-    end
-end
-
--- remove players
-function stageManager.removePlayer(Player)
-    playerCount = playerCount - 1
-    if players[Player] then
-        players[Player] = nil
-        print(Player.Username .. " left the game")
-    end
-end
+--function stageManager.addPlayer(Player)
+  --  playerCount = playerCount + 1
+    --if currentStage == "game" then
+      --  players[Player] = "spectating"
+        --print(Player .. " is spectating")
+    --else
+      --  players[Player] = "lobby"
+        --print(Player.Username .. " joined the lobby")
+    --end
+--end
 
 -- ready up
 local ready = {}
