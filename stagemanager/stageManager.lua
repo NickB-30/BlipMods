@@ -141,6 +141,7 @@ function stageManager.checkPlayersReady()
         --stageManager.setStage("game")
         print("Starting game!")
         ready = {}
+        print(ready)
         readyCount = 0
         -- send event to clients to reset playerCount
         sendEventToPlayers("ReadyUpdate", 0)
