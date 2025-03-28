@@ -26,6 +26,7 @@ if IsServer then
         print(playerCount .. " players in the game!")
         local e = Event()
         e.number = playerCount - 1
+        print(e.number .. " players left")
         e:SendTo(Players)
     end)
 end
@@ -133,6 +134,7 @@ if not IsServer then
         -- do something with the event
         if event.number then
             playerCount = event.number
+            print(playerCount .. " players left")
         end
         if event.ready then
             readyCount = event.ready
