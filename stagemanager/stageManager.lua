@@ -20,7 +20,7 @@ if IsServer then
         print(playerCount .. " players in the game!")
         local e = Event()
         e.number = 1
-        e:sendTo(Players)
+        e:SendTo(Players)
     end)
     LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(Player)
         print(Player.Username .." has left the game!")
