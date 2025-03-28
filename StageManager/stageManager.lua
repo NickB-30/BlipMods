@@ -69,21 +69,21 @@ function stageManager.setPostGameMap(post_game_map)
 end
 
 -- add players
-function stageManager.addPlayer(player)
+function stageManager.addPlayer(Player)
     if currentStage == "game" then
-        players[player] = "spectating"
-        print(player .. " is spectating")
+        players[Player] = "spectating"
+        print(Player .. " is spectating")
     else
-        players[player] = "lobby"
-        print(player .. " joined the lobby")
+        players[Player] = "lobby"
+        print(Player .. " joined the lobby")
     end
 end
 
 -- remove players
-function stageManager.removePlayer(player)
-    if players[player] then
-        players[player] = nil
-        print(player .. " left the game")
+function stageManager.removePlayer(Player)
+    if players[Player] then
+        players[Player] = nil
+        print(Player .. " left the game")
     end
 end
 
@@ -105,17 +105,18 @@ end
 -- check if players are ready
 function stageManager.checkPlayersReady()
     local readyCount = 0
-    for _, status in pairs(players) do
-        if status == "lobby" then
+    for _, status in pairs(ready) do
+        if status == "ready" then
             readyCount = readyCount + 1
         end
     end
 
+    -- if everyone is ready, start the gane
     if readyCount == #players then
         stageManager.setStage("game")
         print("Starting game!")
     else
-        print("Cannot start game!")
+        print(readyCount .. "/ " .. #players .. "are ready!")
     end
 end
 
