@@ -17,7 +17,12 @@ if IsServer then
     LocalEvent:Listen(LocalEvent.Name.OnPlayerJoin, function(Player)
         print(Player.Username .. " has joined the game!")
         playerCount = playerCount + 1
-        print(playerCount .. " players in the game")
+        print(playerCount .. " players in the game!")
+    end)
+    LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(Player)
+        print(Player.Username .." has left the game!")
+        playerCount = playerCount - 1
+        print(playerCount .. " players in the game!")
     end)
 end
 
