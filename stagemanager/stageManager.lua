@@ -116,6 +116,7 @@ function stageManager.readyUp(Player)
         readyCount = readyCount + 1
         print(Player.Username .. " is now ready!")
     end
+    print(readyCount .. " players ready")
 end
 
 -- get ready players
