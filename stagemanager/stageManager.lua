@@ -11,6 +11,7 @@ local postGameMap = {}
 local currentMap = {}
 local players = {}
 local playerCount = 0
+local readyCount = 0
 
 local stages = {
     lobby = function()
@@ -110,7 +111,6 @@ function stageManager.getReadyPlayer()
 end
 
 -- check if players are ready
-local readyCount = 0
 function stageManager.checkPlayersReady()
     for _, status in pairs(ready) do
         if status == "ready" then
