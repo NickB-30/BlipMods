@@ -57,7 +57,7 @@ if not IsServer then
         end
         if event.type == "ResetReady" then
             ready = {}
-            readyCount = 0
+            readyCount = event.value
         end
     end
 end
@@ -144,9 +144,8 @@ function stageManager.checkPlayersReady()
     if readyCount == playerCount then
         --stageManager.setStage("game")
         print("Starting game!")
+        -- reset playerCount and ready table
         sendEventToPlayers("ResetReady", 0)
-        -- send event to clients to reset playerCount
-        sendEventToPlayers("ReadyUpdate", 0)
     else
         print("Cannot start game: " .. readyCount .. " / " .. playerCount .. " players are ready!")
     end
