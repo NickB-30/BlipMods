@@ -15,6 +15,7 @@ local readyCount = 0
 
 -- OnJoin and OnLeave Events (Server)
 if IsServer then
+    -- On join
     LocalEvent:Listen(LocalEvent.Name.OnPlayerJoin, function(Player)
         print(Player.Username .. " has joined the game!")
         playerCount = playerCount + 1
@@ -23,8 +24,9 @@ if IsServer then
         e.number = playerCount
         e:SendTo(Players)
     end)
+    -- On leave
     LocalEvent:Listen(LocalEvent.Name.OnPlayerLeave, function(Player)
-        print(Player.Username .." has left the game!")
+        print(Player.Username .. " has left the game!")
         playerCount = playerCount - 1
         local e = Event()
         e.type = "PlayerCountUpdate"
@@ -135,6 +137,10 @@ function stageManager.checkPlayersReady()
         print("Starting game!")
         ready = {}
         readyCount = 0
+        -- send event to clients to reset playerCount
+        local e = Event()
+        e.number = 0
+        e:SendTo(Players)
     else
         print("Cannot start game: " .. readyCount .. " / " .. playerCount .. " players are ready!")
     end
