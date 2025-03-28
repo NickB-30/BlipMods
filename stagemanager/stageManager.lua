@@ -10,6 +10,7 @@ local postGameMap = {}
 
 local currentMap = {}
 local players = {}
+local playerCount = 0
 
 local stages = {
     lobby = function()
@@ -70,6 +71,7 @@ end
 
 -- add players
 function stageManager.addPlayer(Player)
+    playerCount = playerCount + 1
     if currentStage == "game" then
         players[Player] = "spectating"
         print(Player .. " is spectating")
@@ -83,6 +85,7 @@ end
 
 -- remove players
 function stageManager.removePlayer(Player)
+    playerCount = playerCount - 1
     if players[Player] then
         players[Player] = nil
         print(Player.Username .. " left the game")
@@ -115,11 +118,11 @@ function stageManager.checkPlayersReady()
     end
 
     -- if everyone is ready, start the gane
-    if readyCount == #players then
+    if readyCount == playerCount then
         stageManager.setStage("game")
         print("Starting game!")
     else
-        print(readyCount .. "/ " .. #players .. "are ready!")
+        print(readyCount .. "/ " .. playerCount .. "are ready!")
     end
 end
 
