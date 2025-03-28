@@ -77,9 +77,7 @@ function stageManager.addPlayer(Player)
         print(Player .. " is spectating")
     else
         players[Player] = "lobby"
-        print("Hello")
-  --      print(Player.Username)
-       -- print(Player.Username .. " joined the lobby")
+        print(Player.Username .. " joined the lobby")
     end
 end
 
@@ -97,9 +95,11 @@ local ready = {}
 function stageManager.readyUp(Player)
     if ready[Player] then
         ready[Player] = nil
+        readyCount = readyCount - 1
         print(Player.Username .. " unreadied!")
     else
         ready[Player] = "ready"
+        readyCount = readyCount + 1
         print(Player.Username .. " is now ready!")
     end
 end
@@ -122,7 +122,7 @@ function stageManager.checkPlayersReady()
     if readyCount == playerCount then
         stageManager.setStage("game")
         print("Starting game!")
-        ready = nil
+        ready = {}
         readyCount = 0
     else
         print("Cannot start game: " .. readyCount .. " / " .. playerCount .. " players are ready!")
@@ -131,7 +131,7 @@ end
 
 -- get readyCount / Players
 function stageManager.getReadyCount()
-    return (readyCount .. " / " .. playerCount .. "players are ready!")
+    return (readyCount .. " / " .. playerCount .. " players are ready!")
 end
 
 return stageManager
