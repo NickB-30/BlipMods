@@ -10,7 +10,7 @@ local postGameMap = {}
 
 local currentMap = {}
 --local players = {}
-local playerCount = 1
+local playerCount = 0
 local readyCount = 0
 
 if IsServer then
