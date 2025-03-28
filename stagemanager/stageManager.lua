@@ -110,8 +110,8 @@ function stageManager.getReadyPlayer()
 end
 
 -- check if players are ready
+local readyCount = 0
 function stageManager.checkPlayersReady()
-    local readyCount = 0
     for _, status in pairs(ready) do
         if status == "ready" then
             readyCount = readyCount + 1
@@ -122,9 +122,16 @@ function stageManager.checkPlayersReady()
     if readyCount == playerCount then
         stageManager.setStage("game")
         print("Starting game!")
+        ready = nil
+        readyCount = 0
     else
         print("Cannot start game: " .. readyCount .. " / " .. playerCount .. " players are ready!")
     end
+end
+
+-- get readyCount / Players
+function stageManager.getReadyCount()
+    return (readyCount .. " / " .. playerCount .. "players are ready!")
 end
 
 return stageManager
