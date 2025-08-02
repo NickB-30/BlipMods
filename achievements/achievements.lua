@@ -50,6 +50,7 @@ function achievements_module:Set(key, value)
             checkAndUnlockAchievements(playerStorage, value, goal_def)
         end
     else
+        print("achievement_def.goal: " .. achievement_def.goal .. ", achievement_def.badge: " .. achievement_def.badge)
         checkAndUnlockAchievements(playerStorage, value, achievement_def)
     end
 end
