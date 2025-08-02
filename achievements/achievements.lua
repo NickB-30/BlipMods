@@ -13,7 +13,7 @@ local function checkAndUnlockAchievements(playerStorage, new_value, achievement_
         playerStorage:Get(achievement_def.badge, function(success, results)
             if not success or results[achievement_def.badge] == nil then
                 -- achievement is not unlocked
-                badge:unlockBadge(achievement_def.badge, function(err) if not err then print("Achievement unlocked: " .. achievement_def.badge) end end)
+                badge:unlockBadge(achievement_def.badge, function(err) end)
                 playerStorage:Set(achievement_def.badge, true, function(success) end)
             end
         end)
@@ -41,7 +41,7 @@ function achievements_module:Set(key, value)
     end
 
     local playerStorage = KeyValueStore(Player.UserID)
-    playerStorage:Set(key, value, function(success) if success and key == "games-played"then print("Set " .. key .. " to " .. value) end end)
+    playerStorage:Set(key, value, function(success) end)
 
     -- check for goal completion
     if type(achievement_def[1]) == "table" then
@@ -49,7 +49,6 @@ function achievements_module:Set(key, value)
             checkAndUnlockAchievements(playerStorage, value, goal_def)
         end
     else
-        print("achievement_def.goal: " .. achievement_def.goal .. ", achievement_def.badge: " .. achievement_def.badge)
         checkAndUnlockAchievements(playerStorage, value, achievement_def)
     end
 end
@@ -58,9 +57,7 @@ end
 function achievements_module:Increment(key, amount)
     amount = amount or 1 -- 1 is default
     self:Get(key, function(current_value)
-        --print("increment called, current_value: " .. current_value .. " amount: " .. amount)
         local new_value = current_value + amount
-        print("incrementing to new_value: " .. new_value)
         self:Set(key, new_value)
     end)
 end
