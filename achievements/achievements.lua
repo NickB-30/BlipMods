@@ -14,7 +14,7 @@ local function checkAndUnlockAchievements(playerStorage, new_value, achievement_
         end
         -- check if achievement is already unlocked
         playerStorage:Get(achievement_def.badge, function(success, results)
-            if not success  or results == nil then
+            if not success or results[achievement_def.badge] == nil then
                 -- achievement is not unlocked
                 print("checkAndUnlockAchievements called, new_value: " .. new_value .. " goal_def.goal: " .. goal_def.goal)
                 badge:unlockBadge(goal_def.badge, function(err) if not err then print("Achievement unlocked: " .. goal_def.badge) end end)
