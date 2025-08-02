@@ -9,9 +9,12 @@ local badge = require("badge")
 -- function to check and unlock achievements
 local function checkAndUnlockAchievements(playerStorage, new_value, achievement_def)
     if new_value >= achievement_def.goal then
+        if achievement_def.badge == "noob" then
+            print("noob achievement should be unlocked")
+        end
         -- check if achievement is already unlocked
         playerStorage:Get(achievement_def.badge, function(success, results)
-            if not success then
+            if not success  or results == nil then
                 -- achievement is not unlocked
                 print("checkAndUnlockAchievements called, new_value: " .. new_value .. " goal_def.goal: " .. goal_def.goal)
                 badge:unlockBadge(goal_def.badge, function(err) if not err then print("Achievement unlocked: " .. goal_def.badge) end end)
