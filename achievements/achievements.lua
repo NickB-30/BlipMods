@@ -42,7 +42,7 @@ function achievements_module:Set(key, value)
     end
 
     local playerStorage = KeyValueStore(Player.UserID)
-    playerStorage:Set(key, value, function(success) if success then print("Set " .. key .. " to " .. value) end end)
+    playerStorage:Set(key, value, function(success) if success and key == "games-played"then print("Set " .. key .. " to " .. value) end end)
 
     -- check for goal completion
     if type(achievement_def[1]) == "table" then
