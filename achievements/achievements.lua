@@ -16,9 +16,9 @@ local function checkAndUnlockAchievements(playerStorage, new_value, achievement_
         playerStorage:Get(achievement_def.badge, function(success, results)
             if not success or results[achievement_def.badge] == nil then
                 -- achievement is not unlocked
-                print("checkAndUnlockAchievements called, new_value: " .. new_value .. " goal_def.goal: " .. goal_def.goal)
-                badge:unlockBadge(goal_def.badge, function(err) if not err then print("Achievement unlocked: " .. goal_def.badge) end end)
-                playerStorage:Set(goal_def.badge, true, function(success) end)
+                print("checkAndUnlockAchievements called, new_value: " .. new_value .. " achievement_def.badge: " .. achievement_def.badge)
+                badge:unlockBadge(achievement_def.badge, function(err) if not err then print("Achievement unlocked: " .. achievement_def.badge) end end)
+                playerStorage:Set(achievement_def.badge, true, function(success) end)
             end
         end)
     end
