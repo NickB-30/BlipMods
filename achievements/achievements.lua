@@ -13,7 +13,7 @@ local function checkAndUnlockAchievements(playerStorage, new_value, goal_def)
         playerStorage:Get(goal_def.badge, function(success, results)
             if not success then
                 -- achievement is not unlocked
-                badge:unlockBadge(goal_def.badge, function(err) end)
+                badge:unlockBadge(goal_def.badge, function(err) if not err then print("Achievement unlocked: " .. goal_def.badge) end end)
                 playerStorage:Set(goal_def.badge, true, function(success) end)
             end
         end)
@@ -58,6 +58,7 @@ end
 function achievements_module:Increment(key, amount)
     amount = amount or 1 -- 1 is default
     self:Get(key, function(current_value)
+        print("increment called, current_value: " .. current_value .. " amount: " .. amount)
         local new_value = current_value + amount
         self:Set(key, new_value)
     end)
