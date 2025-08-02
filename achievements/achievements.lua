@@ -26,10 +26,8 @@ function achievements_module:Get(key, callback)
     local playerStorage = KeyValueStore(Player.UserID)
     playerStorage:Get(key, function(success, results)
         if success and results and results[key] then
-            print("results: " .. results[key])
             callback(results[key])
         else
-            print("results: " .. "callback(0)")
             callback(0)
         end
     end)
@@ -60,7 +58,7 @@ end
 function achievements_module:Increment(key, amount)
     amount = amount or 1 -- 1 is default
     self:Get(key, function(current_value)
-        print("increment called, current_value: " .. current_value .. " amount: " .. amount)
+        --print("increment called, current_value: " .. current_value .. " amount: " .. amount)
         local new_value = current_value + amount
         print("incrementing to new_value: " .. new_value)
         self:Set(key, new_value)
