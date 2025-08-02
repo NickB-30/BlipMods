@@ -25,10 +25,11 @@ end
 function achievements_module:Get(key, callback)
     local playerStorage = KeyValueStore(Player.UserID)
     playerStorage:Get(key, function(success, results)
-        if success and results then
+        if success and results and results[1] then
             print("results: " .. results[1])
             callback(results[1])
         else
+            print("results: " .. "callback(0)")
             callback(0)
         end
     end)
