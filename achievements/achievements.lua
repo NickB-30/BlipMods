@@ -60,6 +60,7 @@ function achievements_module:Increment(key, amount)
     self:Get(key, function(current_value)
         print("increment called, current_value: " .. current_value .. " amount: " .. amount)
         local new_value = current_value + amount
+        print("incrementing to new_value: " .. new_value)
         self:Set(key, new_value)
     end)
 end
